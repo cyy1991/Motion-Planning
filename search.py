@@ -97,6 +97,7 @@ def search(grid,init,goal,cost):
 def search1(grid, init, goal, cost):
     closed = [[0 for col in range(len(grid[0]))] for row in range(len(grid))]
     expand = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
+    actions = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
 
     closed[init[0]][init[1]] = 1
 
@@ -129,7 +130,44 @@ def search1(grid, init, goal, cost):
 
                         accu += 1
                         expand[x2][y2] = accu
+                        actions[x2][y2] = i
+    policy = [[" " for col in range(len(grid[0]))] for row in range(len(grid))]
+    x, y = goal
+    policy[x][y] = "*"
+
+    step = 1
+    steps = [[" " for col in range(len(grid[0]))] for row in range(len(grid))]
+
+    while x != init[0] or y != init[1]:
+        action = actions[x][y]
+
+        x2 = x - delta[action][0]
+        y2 = y - delta[action][1]
+
+        policy[x2][y2] = delta_name[action]
+        step += 1
+
+        x = x2
+        y = y2
+
+    x, y = goal
+    steps[x][y] = step
+    while x != init[0] or y != init[1]:
+        action = actions[x][y]
+
+        x2 = x - delta[action][0]
+        y2 = y - delta[action][1]
+
+        step -= 1
+        steps[x2][y2] = step
+
+        x = x2
+        y = y2
     # return "fail"
-    return expand
+    # return expand
+    pprint(expand)
+    pprint(steps)
+
+    return policy
 print(search(grid,init,goal,cost))
 pprint(search1(grid,init,goal,cost))

@@ -14,7 +14,7 @@
 # Grid format:
 #   0 = Navigable space
 #   1 = Occupied space
-
+from pprint import pprint
 grid = [[0, 0, 1, 0, 0, 0],
         [0, 0, 1, 0, 0, 0],
         [0, 0, 0, 0, 1, 0],
@@ -96,6 +96,8 @@ def search(grid,init,goal,cost):
 
 def search1(grid, init, goal, cost):
     closed = [[0 for col in range(len(grid[0]))] for row in range(len(grid))]
+    expand = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
+
     closed[init[0]][init[1]] = 1
 
     x = init[0]
@@ -103,6 +105,8 @@ def search1(grid, init, goal, cost):
     g = 0
 
     open = [[g, x, y]]
+    accu = 0
+    expand[0][0] = accu
 
     while open:
         open.sort()
@@ -111,7 +115,8 @@ def search1(grid, init, goal, cost):
 
         g, x, y = next
         if x == goal[0] and y == goal[1]:
-            return next
+            # return next
+            print("found")
         else:
             for i in range(len(delta)):
                 x2 = x + delta[i][0]
@@ -121,6 +126,10 @@ def search1(grid, init, goal, cost):
                         g2 = g + cost
                         open.append([g2, x2, y2])
                         closed[x2][y2] = 1
-    return "fail"
+
+                        accu += 1
+                        expand[x2][y2] = accu
+    # return "fail"
+    return expand
 print(search(grid,init,goal,cost))
-print(search1(grid,init,goal,cost))
+pprint(search1(grid,init,goal,cost))

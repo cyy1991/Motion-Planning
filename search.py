@@ -107,14 +107,15 @@ def search1(grid, init, goal, cost):
 
     open = [[g, x, y]]
     accu = 0
-    expand[0][0] = accu
-
     while open:
         open.sort()
         open.reverse()
         next = open.pop()
 
         g, x, y = next
+        expand[x][y] = accu
+        accu += 1
+
         if x == goal[0] and y == goal[1]:
             # return next
             print("found")
@@ -128,8 +129,6 @@ def search1(grid, init, goal, cost):
                         open.append([g2, x2, y2])
                         closed[x2][y2] = 1
 
-                        accu += 1
-                        expand[x2][y2] = accu
                         actions[x2][y2] = i
     policy = [[" " for col in range(len(grid[0]))] for row in range(len(grid))]
     x, y = goal

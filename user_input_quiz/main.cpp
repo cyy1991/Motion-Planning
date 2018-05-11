@@ -6,7 +6,7 @@
 
 int main()
 {
-    int year = 0;
+    int year;
     int age = 0;
     std::string name = " ";
     //print a message to the user

@@ -35,12 +35,13 @@ void printJobInformation(string userName, string phoneNumber,string userAddress,
  {
     cout<<"Customer Name: \n";
     getline(cin, userName);
-
+    cout << userName << endl;
     cout<<"Customer Phone Number: \n";
     getline(cin, phoneNumber);
-
+    cout << phoneNumber << endl;
     cout<<"Customer Address: \n";
     getline(cin, userAddress);
+    cout << userAddress << endl;
  }
 
  string getRoomChoice()
@@ -48,6 +49,7 @@ void printJobInformation(string userName, string phoneNumber,string userAddress,
     string room;
     cout<<"What room are we remodeling?: \n";
     getline(std::cin, room);
+    cout << room << endl;
     return room;
  }
 
@@ -62,6 +64,7 @@ void printJobInformation(string userName, string phoneNumber,string userAddress,
     std::cout<<"3: Tile\n";
     std::cout<<"4: Wood Floor\n";
     cin>>task;
+    cout << task << endl;
     return task;
  }
 
@@ -86,6 +89,7 @@ void printJobInformation(string userName, string phoneNumber,string userAddress,
         default:
             std::cout<<" Ivalid task ";
     }
+
     // return task;
  }
 
@@ -94,8 +98,10 @@ void printJobInformation(string userName, string phoneNumber,string userAddress,
   //wall treatments require the height also
     std::cout<<"What is the room width? \n";
     std::cin>>roomWidth;
+    cout << roomWidth << endl;
     std::cout<<"What is the room depth? \n";
     std::cin>>roomDepth;
+    cout << roomDepth << endl;
     if(task == 0 or task == 1)
     {
         std::cout<<"What is the room height? \n";

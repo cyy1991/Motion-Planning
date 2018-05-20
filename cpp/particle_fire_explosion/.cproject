@@ -21,7 +21,7 @@
 							<builder buildPath="${workspace_loc:/particle_fire_explosion}/Debug" id="cdt.managedbuild.target.gnu.builder.macosx.exe.debug.1564046124" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.macosx.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.exe.debug.158154264" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.exe.debug.928274743" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.exe.debug">
-								<option id="macosx.cpp.link.option.flags.1159824441" superClass="macosx.cpp.link.option.flags" useByScannerDiscovery="false" value="-F/Library/Frameworks -framework SDL2 -framework Cocoa&#10;" valueType="string"/>
+								<option id="macosx.cpp.link.option.flags.1159824441" name="Linker flags" superClass="macosx.cpp.link.option.flags" useByScannerDiscovery="false" value="-F/Library/Frameworks -framework SDL2 -framework Cocoa" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1506274139" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -34,7 +34,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.exe.debug.1206036950" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.exe.debug">
 								<option id="gnu.cpp.compilermacosx.exe.debug.option.optimization.level.1593250499" name="Optimization Level" superClass="gnu.cpp.compilermacosx.exe.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.macosx.exe.debug.option.debugging.level.1893665170" name="Debug Level" superClass="gnu.cpp.compiler.macosx.exe.debug.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.include.paths.629147259" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.629147259" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="/Library/Frameworks/Headers"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1518265086" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>

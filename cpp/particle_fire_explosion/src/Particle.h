@@ -14,14 +14,16 @@ struct Particle {
 	double m_x;
 	double m_y;
 
-	double m_xspeed;
-	double m_yspeed;
-
+private:
+	double m_direction;
+	double m_speed;
+private:
+	void init();
 
 public:
 	Particle();
 	virtual ~Particle();
-	void update(); // update particle's position.
+	void update(int interval); // update particle's position.
 };
 
 } /* namespace qiang */

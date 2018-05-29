@@ -22,5 +22,15 @@ int main() {
 	Complex c6(1, 7);
 	cout << 3.2 + c6 << endl;
 	cout << 7 + c1 + c2 + 8 + 9 + c6 << endl;
+	if(c1 != c2) {
+		cout << " not equal" <<endl;
+	}
+	else{
+		cout << " equal" << endl;
+	}
+	// complex number's conjugate number
+	cout << *c1 << endl;
+	cout << *c1 + *Complex(4, 3) << endl;
+
 	return 0;
 }

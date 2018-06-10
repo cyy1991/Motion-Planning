@@ -55,21 +55,22 @@ def search(world_state, robot_pose, goal_pose):
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] # orthogonal directions
     found = False
 
-    visited = np.zeros(world_state.shape)
-
     x, y = robot_pose
     g = 0
     h = heuristic(robot_pose, goal_pose)
     f = g + h
-    open = [[f, g, x, y]]
-    visited[robot_pose[0], robot_pose[1]] = 1
+    open = [[f, x, y]]
     came_from = {}
     came_from[robot_pose] = None
+    cost_so_far = {}
+    cost_so_far[robot_pose] = 0
 
     while open:
         open.sort() # sort based on f value
         current = open.pop(0)
-        g, x, y = current[1:]
+
+        x, y = current[1:]
+        g = cost_so_far[(x, y)]
 
         if (x, y) == goal_pose:
             found = True
@@ -84,13 +85,14 @@ def search(world_state, robot_pose, goal_pose):
                 if not is_pos_valid((x2, y2), world_state.shape):
                     continue
 
-                if world_state[x2, y2] == 0 and visited[x2, y2] == 0:
-                    g2 = g + 1
+                g2 = g + 1
+                if world_state[x2, y2] == 0 and ((x2, y2) not in cost_so_far or g2 < cost_so_far[(x2, y2)]):
+
                     h2 = heuristic((x2, y2), goal_pose)
                     f2 = g2 + h2
-                    open.append([f2, g2, x2, y2])
-                    visited[x2, y2] = 1
+                    open.append([f2, x2, y2])
                     came_from[(x2, y2)] = (x, y)
+                    cost_so_far[(x2, y2)] = g2
     if found:
         path = [goal_pose]
         current = goal_pose

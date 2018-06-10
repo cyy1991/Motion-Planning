@@ -121,18 +121,18 @@ vector<Location> Optimal_planner::search(vector< vector<int> > world_state, Loca
                         {0, -1},
                         {0, 1} };
   bool found = false;
-  vector< vector<int> > visited(rows, vector<int>(cols, 0));
-  visited[robot_pose.x][robot_pose.y] = 1;
 
   int g = 0, h = heuristic(robot_pose, goal_pose);
   int x = robot_pose.x, y = robot_pose.y;
   vector<vector<int> > open;
-  open.push_back({g+h, g, x, y});
+  open.push_back({g+h, x, y});
 
   int x2, y2;
   map<Location, Location> came_from;
+  map<Location, int> cost_so_far;
   Location dummy(-1, -1);
   came_from[robot_pose] = dummy;
+  cost_so_far[robot_pose] = 0;
 
   while(open.size()) {
     sort(open.begin(), open.end());
@@ -144,10 +144,10 @@ vector<Location> Optimal_planner::search(vector< vector<int> > world_state, Loca
     next = open.back();
     open.pop_back();
 
-    g = next[1];
-    x = next[2];
-    y = next[3];
+    x = next[1];
+    y = next[2];
     Location pos(x, y);
+    int g = cost_so_far[pos];
 
     if(pos == goal_pose) {
       found = true;
@@ -165,13 +165,15 @@ vector<Location> Optimal_planner::search(vector< vector<int> > world_state, Loca
           continue;
         }
 
-        if(world_state[x2][y2] == 0 && visited[x2][y2] == 0) {
-          int g2 = g + 1;
+        int g2 = g + 1;
+        // if not visited, store the cost_so_far, otherwise update if lower cost exists
+        if(cost_so_far.find(pos2) == cost_so_far.end() || g2 < cost_so_far[pos2]) {
           int h2 = heuristic(pos2, goal_pose);
-          open.push_back({g2+h2, g2, x2, y2});
-          visited[x2][y2] = 1;
+          open.push_back({g2+h2, x2, y2});
+          cost_so_far[pos2] = g2;
           came_from[pos2] = pos;
         }
+
       }
     }
 

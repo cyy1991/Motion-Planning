@@ -167,7 +167,8 @@ vector<Location> Optimal_planner::search(vector< vector<int> > world_state, Loca
 
         int g2 = g + 1;
         // if not visited, store the cost_so_far, otherwise update if lower cost exists
-        if(cost_so_far.find(pos2) == cost_so_far.end() || g2 < cost_so_far[pos2]) {
+        if(world_state[x2][y2] == 0 &&
+          (cost_so_far.find(pos2) == cost_so_far.end() || g2 < cost_so_far[pos2])) {
           int h2 = heuristic(pos2, goal_pose);
           open.push_back({g2+h2, x2, y2});
           cost_so_far[pos2] = g2;

@@ -31,13 +31,13 @@ def search(world_state, robot_pose, goal_pose):
             world_state or None if no path found.
     """
     if world_state.shape[0] == 0 or world_state.shape[1] == 0:
-        print "Error, empty world_state!!!"
+        print("Error, empty world_state!!!")
         return None
     if not is_pos_valid(robot_pose, world_state.shape):
-        print "Error, invalid robot_pose!!!", robot_pose
+        print("Error, invalid robot_pose!!!", robot_pose)
         return None
     if not is_pos_valid(goal_pose, world_state.shape):
-        print "Error, invalid goal_pose!!!", goal_pose
+        print("Error, invalid goal_pose!!!", goal_pose)
         return None
 
     current = robot_pose

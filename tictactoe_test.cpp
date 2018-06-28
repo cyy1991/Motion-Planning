@@ -1,16 +1,13 @@
 
-
+#include <limits>
 #include <iostream>
 #include <vector>
 using namespace std;
 
-
 class Player {
   public:
     int id;
-
 };
-
 
 class Location {
   public:
@@ -76,6 +73,7 @@ string TicTacToe::checkWin(Player player, Location location){
     return ans;
   }
 
+  ans = "Win";
   // check column
   for (int i = 0; i < N; ++i) {
     if (board[i][location.col] != player.id){
@@ -88,27 +86,29 @@ string TicTacToe::checkWin(Player player, Location location){
     return ans;
   }
 
+
   // check diagonal
   if(location.row == location.col){
+    ans = "Win";
     for(int i = 0; i < N; ++i){
       if (board[i][i] != player.id){
-      ans = "Valid";
-      break;
+        ans = "Valid";
+        break;
       }
     }
   }
-  cout << ans;
+  // cout << ans << endl;
   return ans;
 
 }
 
 
-void TicTacToe::showBoard(){
-  for(int i = 0; i < N; ++i){
-    for(int j = 0; j < N; ++j){
+void TicTacToe::showBoard() {
+  for(int i = 0; i < N; ++i) {
+    for(int j = 0; j < N; ++j) {
       cout << board[i][j] << " ";
-
-    }cout <<endl;
+    }
+    cout <<endl;
   }
 }
 
@@ -119,50 +119,83 @@ int main(int argc, char** argv) {
  // Add some useful test cases.
   // result = game.MakeMove(Player, Location)
   // Check result is correct.
-  int N = 5;
+  int n_players; // number of players
+  cout << "please choose the number of players:" << endl;
+  while(!(cin >> n_players) || n_players > 9 || n_players < 2) {
+    cout << "Not a number or out of bounds, please choose another N:" << endl;
+    cin.clear();
+    cin.ignore(numeric_limits<int>::max(), '\n');
+  }
+
+  int N;
+
+  cout << "Please choose N first:" << endl;
+
+  while(!(cin >> N) || N > 100 || N < 3) {
+    cout << "Not a number or out of bounds, please choose another N:" << endl;
+    cin.clear();
+    cin.ignore(numeric_limits<int>::max(), '\n');
+  }
   TicTacToe game(N);
-  Player p1;
-  Player p2;
-  p1.id = 1;
-  p2.id = 2;
+  vector<Player> players;
+  for(int i = 1; i < n_players + 1; ++i) {
+    Player player;
+    player.id = i;
+    players.push_back(player);
+  }
+
 
   Location loc;
   int numOfMoves=1; //initialize the numOfMoves
 
   string status;
   while(status != "Win" && numOfMoves < N*N) {
-    if(numOfMoves%2 != 0){
-      cout << "Player 1 is playing" << endl;
+    game.showBoard();
 
+    if(numOfMoves%n_players != 0){
+      cout << "Player " << numOfMoves%n_players << " is playing" << endl;
       cout << "Please input the location: row and col, e.g 3 4" << endl;
-      cin >> loc.row;
-      cin >> loc.col;
-
-      status = game.MakeMove(p1, loc);
+      // make sure row and col are numbers.
+      while(!(cin >> loc.row) || !(cin >> loc.col)) {
+        cout << "Not numbers, please input the location: row and col, e.g 3 4" << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<int>::max(), '\n');
+      }
+      cout << "You selected " << loc.row << " " << loc.col << endl;
+      status = game.MakeMove(players[numOfMoves%n_players - 1], loc);
 
     }
     else{
-      cout << "Player 2 is playing" << endl;
+      cout << "Player "<< n_players <<" is playing" << endl;
       cout << "Please input the location: row and col, e.g 3 4" << endl;
+      // make sure row and col are numbers.
 
-      cin >> loc.row;
-      cin >> loc.col;
-      status = game.MakeMove(p2, loc);
+      while(!(cin >> loc.row) || !(cin >> loc.col)) {
+        cout << "Not numbers, please input the location: row and col, e.g 3 4" << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<int>::max(), '\n');
+      }
+      cout << "You selected " << loc.row << " " << loc.col << endl;
+      status = game.MakeMove(players[n_players - 1], loc);
 
     }
 
-    cout << "Status is " << status << endl << endl;
+    cout << "Status is " << status << ", press Enter to continue."<< endl;
 
-    game.showBoard();
+    cin.ignore(numeric_limits<int>::max(), '\n');
+    cin.get();
+
+
     if(status != "InValid"){
         numOfMoves += 1;
 
     }
-
-
+    // system("read");
+    system("clear");
   }
-
-
+  if(status == "Win") {
+    cout << "Congratulations!" << endl;
+  }
 
  return 0;
 }
